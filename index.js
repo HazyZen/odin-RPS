@@ -42,6 +42,14 @@ function playGame() {
     console.log(playRound(humanChoice, computerChoice));
     console.log(`You: ${humanScore} | Computer: ${computerScore}`);
   }
+
+  if (humanScore > computerScore) {
+    console.log("You defeated your opponent!");
+  } else if (computerScore > humanScore) {
+    console.log("Computer wins, get better!");
+  } else {
+    console.log("You're both bad at this game.");
+  }
 }
 
 playGame();
