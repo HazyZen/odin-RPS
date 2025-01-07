@@ -1,16 +1,18 @@
-document.body.style.boxSizing = "border-box";
-document.body.style.margin = "0";
-document.body.style.padding = "0";
-
 let container = document.createElement("div");
+container.classList.add("container");
 document.body.appendChild(container);
-container.style.width = "100%";
-container.style.height = "100vh";
-container.style.paddingLeft = "1rem";
+
+let titleContainer = document.createElement("div");
+let title = document.createElement("h1");
+title.textContent = "Rock Paper Scissors";
+titleContainer.appendChild(title);
+let conditionToWin = document.createElement("p");
+conditionToWin.textContent = "First to 5 wins";
+titleContainer.appendChild(conditionToWin);
+container.appendChild(titleContainer);
 
 let scoreContainer = document.createElement("div");
-scoreContainer.style.display = "flex";
-scoreContainer.style.gap = "2rem";
+scoreContainer.classList.add("scoreContainer");
 
 let human = document.createElement("p");
 let humanScore = 0;
@@ -26,9 +28,18 @@ scoreContainer.appendChild(computer);
 container.appendChild(scoreContainer);
 
 // buttons
+let btnContainer = document.createElement("div");
+btnContainer.classList.add("btnContainer");
 let rockBtn = document.createElement("button");
+rockBtn.classList.add("btn");
 let paperBtn = document.createElement("button");
+paperBtn.classList.add("btn");
 let scissorsBtn = document.createElement("button");
+scissorsBtn.classList.add("btn");
+
+btnContainer.appendChild(rockBtn);
+btnContainer.appendChild(paperBtn);
+btnContainer.appendChild(scissorsBtn);
 
 rockBtn.textContent = "Rock";
 paperBtn.textContent = "Paper";
@@ -50,9 +61,7 @@ scissorsBtn.addEventListener("click", () => {
   playRound(humanChoice, computerChoice);
 });
 
-container.appendChild(rockBtn);
-container.appendChild(paperBtn);
-container.appendChild(scissorsBtn);
+container.appendChild(btnContainer);
 
 function getComputerChoice() {
   let value = Math.floor(Math.random() * 3);
@@ -76,7 +85,7 @@ function playRound(humanChoice, computerChoice) {
   if (humanScore == 5 || computerScore == 5) {
     humanScore = 0;
     computerScore = 0;
-    winner.textContent = "";
+    winner.remove();
   }
 
   if (humanChoice === computerChoice) {
@@ -103,12 +112,15 @@ function playRound(humanChoice, computerChoice) {
   human.textContent = `Human: ${humanScore}`;
   computer.textContent = `Computer: ${computerScore}`;
 
-  if (humanScore == 5) {
-    winner.textContent = "Congrats! You win.";
-  } else if (computerScore == 5) {
-    winner.textContent = "You lose! Get better.";
-  }
-
   container.appendChild(result);
-  container.appendChild(winner);
+
+  if (humanScore == 5) {
+    winner.textContent = "Congrats! You defeated the Computer.";
+    winner.style.color = "green";
+    container.appendChild(winner);
+  } else if (computerScore == 5) {
+    winner.textContent = "Computer defeated you. Wow you suck!";
+    winner.style.color = "red";
+    container.appendChild(winner);
+  }
 }
